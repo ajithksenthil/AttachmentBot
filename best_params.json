@@ -1,0 +1,1 @@
+{"estimator__n_estimators": 200, "estimator__max_depth": 4, "estimator__learning_rate": 0.05, "estimator__lambda": 0.5, "estimator__colsample_bytree": 0.3, "estimator__alpha": 0}
