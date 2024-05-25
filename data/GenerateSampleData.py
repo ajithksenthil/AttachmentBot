@@ -32,7 +32,7 @@ df_chat = pd.DataFrame({'chathistory': chat_transcripts})
 df_questionnaire = pd.DataFrame(questionnaire_responses, columns=[f'Question{i+1}' for i in range(10)])
 
 # Save sample data to CSV
-df_chat.to_csv('data/sample_chat_transcripts.csv', index=False)
-df_questionnaire.to_csv('data/questionnaire_template.csv', index=False)
+df_chat.to_csv('sample_chat_transcripts.csv', index=False)
+df_questionnaire.to_csv('questionnaire_template.csv', index=False)
 
 print("Sample data generated and saved.")

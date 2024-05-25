@@ -25,13 +25,14 @@ Purpose: To create visualizations for your chat data and machine learning model 
 Usage: After running ChatAssessmentAnalysis.py, use this script to visualize the model's performance and any other insights from your data.
 Installation
 
-## Before running the scripts, you need to set up your environment:
+## Before running the scripts, you need to set up your environment, in your terminal or command line interface:
 
 Clone the toolbox repository.
 
 Navigate to the toolbox directory.
 
-Install required dependencies by running pip install -r requirements.txt.
+Install required dependencies by running pip install -r requirements.txt in your terminal
+
 Running the Scripts
 
 ## Each script is designed to be run independently, based on the stage of your analysis:

@@ -19,7 +19,7 @@ The Chatbot for Psychological Assessment Toolbox provides researchers with the r
 
 ## Getting Started
 
-1. **Installation**: Instructions on setting up the toolbox environment, including required libraries and dependencies.
+1. **Installation**: Instructions on setting up the toolbox environment, including required libraries and dependencies. Make sure you have Git installed before running git clone, and look at GettingStarted.md in the docs folder to get an overview of how to get started.
 2. **Data Collection Setup**: Guide on how to configure and use the data collection scripts with your chatbot.
 3. **Data Processing**: Steps to process your collected data using the embedding and feature extraction scripts.
 4. **Model Training and Application**: Detailed walkthrough on how to train the machine learning models with your data and apply these models to new datasets.
@@ -28,6 +28,7 @@ The Chatbot for Psychological Assessment Toolbox provides researchers with the r
 ## Prerequisites
 
 - Basic understanding of Python programming.
+- Python and Git installed in your machine
 - Familiarity with psychological assessment concepts and questionnaire design.
 - Access to a chatbot platform or willingness to set one up (guidance provided).
 
