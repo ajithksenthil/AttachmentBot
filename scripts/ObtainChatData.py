@@ -1,25 +1,22 @@
 # ObtainChatData.py
-# Purpose: Script to load and preprocess chat transcripts for psychological assessments.
-
-# Imports
 import pandas as pd
 
 # Load & inspect dataset
-input_datapath = "data/chatbotdata.csv"
-output_datapath = "data/processed_chat_data.csv"
+input_datapath = "../data/chatbotdata.csv"
+output_datapath = "../data/processed_chat_data.csv"
 df = pd.read_csv(input_datapath)
 print("Initial Data Loaded. Here's a preview:")
 print(df.head(2))
 
 # Data Preprocessing
-# You can add any specific preprocessing steps here. For now, we are just dropping rows with missing values.
 df = df.dropna()
 print(f"Data after cleaning: {len(df)} entries")
 
-# TODO: Add any specific cleaning or preprocessing steps here. For example, you might want to standardize the text, remove special characters, etc.
+# Combine all transcripts from the same user into a single transcript
+df_combined = df.groupby('user_id')['transcript'].apply(' '.join).reset_index()
 
 # Save the processed data
-df.to_csv(output_datapath, index=False)
+df_combined.to_csv(output_datapath, index=False)
 print(f"Processed data saved to {output_datapath}")
 
 # Note to Users:
