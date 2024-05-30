@@ -4,7 +4,7 @@ import pandas as pd
 from urllib.parse import urlparse
 
 # Database URL
-DATABASE_URL = 'postgres://u7bd1qqgkp3dat:p7e688a25309e4882b827626aa723c44bc29404e905661a9e22f18d54c752679e@c5hilnj7pn10vb.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dcbt0aqo1e804s'
+DATABASE_URL = "your database URL"
 
 # Parse the database URL
 result = urlparse(DATABASE_URL)
