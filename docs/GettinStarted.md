@@ -31,15 +31,14 @@ Clone the toolbox repository to your local machine:
 ```sh
 git clone <repository-url>
 cd <repository-directory>
+```
 
+### Step 2: Setting up Hugging Face Space
 
-Step 2: Setting up Hugging Face Space
-
-	1.	Create a new Hugging Face space: Go to Hugging Face Spaces and create a new space.
-	2.	Upload the required files: Upload chatbot.py, requirements.txt, and README.md to the space.
-	3.	Set the metadata: Ensure your README.md has the following metadata at the top:
-
-
+1. **Create a new Hugging Face space:** Go to Hugging Face Spaces and create a new space.
+2. **Upload the required files:** Upload `chatbot.py`, `requirements.txt`, and `README.md` to the space.
+3. **Set the metadata:** Ensure your `README.md` has the following metadata at the top:
+```md
 ---
 title: ExampleHostedChatBot
 emoji: 💬
@@ -50,62 +49,76 @@ app_file: chatbot.py
 pinned: false
 license: mit
 ---
+```
 
-Step 3: Setting up the Database in Heroku
+### Step 3: Setting up the Database in Heroku
 
-	1.	Create a Heroku account: If you don’t have one, sign up at Heroku.
-	2.	Create a new app:
-        heroku create examplechatbot
-    3.	Add PostgreSQL addon:
-        heroku addons:create heroku-postgresql:hobby-dev -a examplechatbot
-    4.	Retrieve the database URL:
-        heroku config:get DATABASE_URL -a examplechatbot
-Step 4: Setting up OpenAI Account
+1. **Create a Heroku account:** If you don’t have one, sign up at [Heroku](https://www.heroku.com).
+2. **Create a new app:**
+    ```sh
+    heroku create examplechatbot
+    ```
+3. **Add PostgreSQL addon:**
+    ```sh
+    heroku addons:create heroku-postgresql:hobby-dev -a examplechatbot
+    ```
+4. **Retrieve the database URL:**
+    ```sh
+    heroku config:get DATABASE_URL -a examplechatbot
+    ```
 
-	1.	Create an OpenAI account: If you don’t have one, sign up at OpenAI.
-	2.	Generate an API key: Go to the API keys section and create a new key.
+### Step 4: Setting up OpenAI Account
 
-Step 5: Configuring Hugging Face Secrets
+1. **Create an OpenAI account:** If you don’t have one, sign up at [OpenAI](https://www.openai.com).
+2. **Generate an API key:** Go to the API keys section and create a new key.
 
-	1.	Add secrets to Hugging Face space:
-	•	DATABASE_URL with the value obtained from Heroku.
-	•	OPENAI_API_KEY with your OpenAI API key.
+### Step 5: Configuring Hugging Face Secrets
 
-Step 6: Install Dependencies
-	1.	Navigate to the toolbox directory:
-        cd <repository-directory>
-	2.	Install required dependencies:
-        pip install -r requirements.txt
+1. **Add secrets to Hugging Face space:**
+   - `DATABASE_URL` with the value obtained from Heroku.
+   - `OPENAI_API_KEY` with your OpenAI API key.
 
-Running the Scripts
+### Step 6: Install Dependencies
+
+1. **Navigate to the toolbox directory:**
+    ```sh
+    cd <repository-directory>
+    ```
+2. **Install required dependencies:**
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+## Running the Scripts
 
 Each script is designed to be run independently, based on the stage of your analysis:
 
-	1.	Start by running ObtainChatData.py to prepare your data:
+1. **Start by running `ObtainChatData.py` to prepare your data:**
+    ```sh
+    python scripts/ObtainChatData.py
+    ```
+2. **Use `EmbeddingExtraction.py` to add embeddings to your data:**
+    ```sh
+    python scripts/EmbeddingExtraction.py
+    ```
+3. **Run `FeatureExtraction.py` to include additional features:**
+    ```sh
+    python scripts/FeatureExtraction.py
+    ```
+4. **Analyze your data with `ChatAssessmentAnalysis.py`:**
+    ```sh
+    python scripts/ChatAssessmentAnalysis.py
+    ```
+5. **Finally, visualize your results using `DataVisualization.py`:**
+    ```sh
+    python scripts/DataVisualization.py
+    ```
 
-        python scripts/ObtainChatData.py
+## Notes for Users
 
-    2.	Use EmbeddingExtraction.py to add embeddings to your data:
-
-        python scripts/EmbeddingExtraction.py
-
-	3.	Run FeatureExtraction.py to include additional features:
-
-        python scripts/FeatureExtraction.py
-
-	4.	Analyze your data with ChatAssessmentAnalysis.py:
-
-        python scripts/ChatAssessmentAnalysis.py
-
-	5.	Finally, visualize your results using DataVisualization.py:
-
-        python scripts/DataVisualization.py
-
-Notes for Users
-
-	•	Ensure that you update file paths and column names in the scripts to match your dataset.
-	•	The toolbox is designed to be flexible. Feel free to modify the scripts according to your research needs.
-	•	Regularly check for updates or enhancements to the toolbox.
+- Ensure that you update file paths and column names in the scripts to match your dataset.
+- The toolbox is designed to be flexible. Feel free to modify the scripts according to your research needs.
+- Regularly check for updates or enhancements to the toolbox.
 
 Happy researching!
 
