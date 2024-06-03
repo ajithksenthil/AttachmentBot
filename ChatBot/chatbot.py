@@ -128,7 +128,7 @@ def store_survey_responses(user_id, responses):
 create_table()
 
 # Survey questions with different input types
-# NOTE: Modify this to fit your survey methodology
+# NOTE: Modify this to fit your survey methodology, check the Gradio.Radio python documentation to see the types of questions are available
 survey_questions = [
     {"question": "On a scale of 1 to 5, how are you feeling today?", "type": "scale", "options": ["1", "2", "3", "4", "5"]},
     {"question": "How often do you feel stressed?", "type": "multiple_choice", "options": ["Never", "Rarely", "Sometimes", "Often", "Always"]},
