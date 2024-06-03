@@ -107,6 +107,7 @@ def authenticate(username, password):
 create_table()
 
 # Initial system messages for the chatbot
+# NOTE: Change this to modify the chatbot behavior to fit your research needs
 initial_messages = [
     {"role": "system", "content": "You are an attachment and close relationship research surveyor"},
     {"role": "user", "content": """ask me each question from this questionnaire and rewrite it as an open ended question and wait for each response. Empathize with me and regularly ask for clarification why I answered with a certain response. Here is the questionnaire:  
@@ -163,7 +164,7 @@ with gr.Blocks() as demo:
 
     login_button.click(login, inputs=[username, password], outputs=[chat_input, chat_output, state, auth_message])
     register_button.click(register, inputs=[username, password], outputs=[chat_input, chat_output, state, auth_message])
-
+    # NOTE: Change this to change the user interface to fit your need
     chat_interface = gr.Interface(
         fn=chatbot,
         inputs=[chat_input, state],
