@@ -3,6 +3,7 @@ import gradio as gr
 import os
 import psycopg2
 from urllib.parse import urlparse
+import json
 
 # Initialize OpenAI client
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -48,6 +49,12 @@ def create_table():
             id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(id),
             transcript TEXT NOT NULL,
+            timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        );
+        CREATE TABLE IF NOT EXISTS survey_responses (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(id),
+            responses JSONB,
             timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
         );
         '''
@@ -103,11 +110,45 @@ def authenticate(username, password):
             return user_id[0]
     return None
 
+# Store survey responses
+def store_survey_responses(user_id, responses):
+    conn = connect_db()
+    if conn:
+        cur = conn.cursor()
+        insert_query = '''
+        INSERT INTO survey_responses (user_id, responses)
+        VALUES (%s, %s);
+        '''
+        cur.execute(insert_query, (user_id, json.dumps(responses)))  # Convert dictionary to JSON string
+        conn.commit()
+        cur.close()
+        conn.close()
+
 # Initialize the table
 create_table()
 
+# Survey questions with different input types
+# NOTE: Modify this to fit your survey methodology
+survey_questions = [
+    {"question": "On a scale of 1 to 5, how are you feeling today?", "type": "scale", "options": ["1", "2", "3", "4", "5"]},
+    {"question": "How often do you feel stressed?", "type": "multiple_choice", "options": ["Never", "Rarely", "Sometimes", "Often", "Always"]},
+    {"question": "Do you have trouble sleeping? (True/False)", "type": "true_false"}
+]
+
+# Function to create survey inputs dynamically
+def create_survey_inputs():
+    inputs = []
+    for q in survey_questions:
+        if q["type"] == "scale":
+            inputs.append(gr.Radio(label=q["question"], choices=q["options"]))
+        elif q["type"] == "multiple_choice":
+            inputs.append(gr.Radio(label=q["question"], choices=q["options"]))
+        elif q["type"] == "true_false":
+            inputs.append(gr.Radio(label=q["question"], choices=["True", "False"]))
+    return inputs
+
 # Initial system messages for the chatbot
-# NOTE: Change this to modify the chatbot behavior to fit your research needs
+# NOTE: Modify this to change chatbot behavior to fit your needs
 initial_messages = [
     {"role": "system", "content": "You are an attachment and close relationship research surveyor"},
     {"role": "user", "content": """ask me each question from this questionnaire and rewrite it as an open ended question and wait for each response. Empathize with me and regularly ask for clarification why I answered with a certain response. Here is the questionnaire:  
@@ -138,15 +179,22 @@ def chatbot(input, state):
         return conversation, [user_id, messages]
 
 with gr.Blocks() as demo:
-    username = gr.Textbox(label="Username")
-    password = gr.Textbox(label="Password", type="password")
-    login_button = gr.Button("Login")
-    register_button = gr.Button("Register")
-    auth_message = gr.Textbox(visible=False)
-
-    chat_input = gr.Textbox(lines=7, label="Chat with AttachmentBot", visible=False)
-    chat_output = gr.Textbox(label="Conversation", visible=False)
-    state = gr.State([None, initial_messages.copy()])
+    with gr.Row():
+        with gr.Column():
+            username = gr.Textbox(label="Username")
+            password = gr.Textbox(label="Password", type="password")
+            login_button = gr.Button("Login")
+            register_button = gr.Button("Register")
+            auth_message = gr.Textbox(visible=False)
+        
+        with gr.Column():
+            survey_inputs = create_survey_inputs()
+            submit_survey = gr.Button("Submit Survey")
+        
+        with gr.Column():
+            chat_input = gr.Textbox(lines=7, label="Chat with AttachmentBot", visible=False)
+            chat_output = gr.Textbox(label="Conversation", visible=False)
+            state = gr.State([None, initial_messages.copy()])
 
     def login(username, password):
         user_id = authenticate(username, password)
@@ -162,9 +210,19 @@ with gr.Blocks() as demo:
         else:
             return gr.update(visible=False), gr.update(visible=False), [None, initial_messages.copy()], "Registration failed, try a different username."
 
+    def submit_survey_fn(*responses):
+        state = responses[-1]
+        responses = responses[:-1]
+        user_id = state[0]
+        survey_responses = {survey_questions[i]["question"]: responses[i] for i in range(len(responses))}
+        store_survey_responses(user_id, survey_responses)
+        return gr.update(visible=True), gr.update(visible=True), state
+
     login_button.click(login, inputs=[username, password], outputs=[chat_input, chat_output, state, auth_message])
     register_button.click(register, inputs=[username, password], outputs=[chat_input, chat_output, state, auth_message])
-    # NOTE: Change this to change the user interface to fit your need
+    submit_survey.click(submit_survey_fn, inputs=survey_inputs + [state], outputs=[chat_input, chat_output, state])
+    
+    # NOTE: Modify this to change your user interface to fit your use case
     chat_interface = gr.Interface(
         fn=chatbot,
         inputs=[chat_input, state],
