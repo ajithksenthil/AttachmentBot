@@ -26,6 +26,7 @@ Welcome to the Chatbot for Psychological Assessment Toolbox! This guide will hel
 
 ## Setup Instructions
 
+NOTE: <...> means replace with the actual thing you want to use, do not keep the "< >" just replace with what it the text in the middle represents but for you specifically
 ### Step 1: Clone the Repository
 Clone the toolbox repository to your local machine:
 
@@ -102,11 +103,11 @@ Clone the toolbox repository to your local machine:
      - `DATABASE_URL` with the value obtained from Heroku.
      - `OPENAI_API_KEY` with your OpenAI API key.
 
-### Step 6: Install Dependencies
+### Step 6: Install Dependencies to run scripts locally
 
-1. **Navigate to the toolbox directory:**
+1. **Navigate to the toolbox directory in your local machine:**
    ```sh
-   cd <repository-directory>
+   cd <repository-directory (replace with actual name)>
    ```
 2. **Install required dependencies:**
    ```sh
