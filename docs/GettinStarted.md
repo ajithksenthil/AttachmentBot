@@ -155,6 +155,8 @@ Each script is designed to be run independently, based on the stage of your anal
 
 - Ensure that you update file paths and column names in the scripts to match your dataset.
 - The toolbox is designed to be flexible. Feel free to modify the scripts according to your research needs.
+- By modifying the initial system messages in chatbot.py in ChatBot, you can modify the behavior, assign new roles and give whatever behavior you need for your research purpose by changing initial system messages.
+- By modifying the survey questions and types in chatbot.py in ChatBot, you can add whatever survey methodology you like for your research needs. 
 - Regularly check for updates or enhancements to the toolbox.
 
 Happy researching!
