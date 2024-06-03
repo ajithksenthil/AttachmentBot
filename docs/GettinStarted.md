@@ -77,7 +77,7 @@ Clone the toolbox repository to your local machine:
 
 3. **Add PostgreSQL addon:**
    - Navigate to the "Resources" tab of your new app.
-   - In the "Add-ons" section, search for "Heroku Postgres" and select the "Hobby Dev - Free" plan.
+   - In the "Add-ons" section, search for "Heroku Postgres" and select the plan that fits your budget, Essential 0 is the cheapest.
    - Click on "Provision" to add the database to your app.
 
 4. **Retrieve the database URL:**
