@@ -128,7 +128,7 @@ def store_survey_responses(user_id, responses):
 create_table()
 
 # Survey questions with different input types
-# NOTE: Modify this to fit your survey methodology, check the Gradio.Radio python documentation to see the types of questions are available
+# NOTE: Modify this to fit your survey methodology, check the Gradio.Radio python documentation to see the types of questions are available, feel free to add more questions
 survey_questions = [
     {"question": "On a scale of 1 to 5, how are you feeling today?", "type": "scale", "options": ["1", "2", "3", "4", "5"]},
     {"question": "How often do you feel stressed?", "type": "multiple_choice", "options": ["Never", "Rarely", "Sometimes", "Often", "Always"]},
@@ -160,7 +160,7 @@ Do you usually discuss your problems and concerns with your mother or a mother-l
 def chatbot(input, state):
     user_id = state[0]
     messages = state[1]
-    
+    # NOTE: By changing model="whatever model" you can change the chatbot to what you want. This is using OpenAI API however. 
     if input:
         messages.append({"role": "user", "content": input})
         response = client.chat.completions.create(
