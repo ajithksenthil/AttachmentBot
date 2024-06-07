@@ -23,7 +23,7 @@ def get_embedding(text, model="text-embedding-3-small"):
    return client.embeddings.create(input = [text], model=model).data[0].embedding
 
 # Load preprocessed chat transcript data
-input_datapath = "../data/processed_chat_data.csv"
+input_datapath = "../data/chatbotdata.csv"
 output_datapath = "../data/chat_transcripts_with_embeddings.csv"
 df = pd.read_csv(input_datapath)
 
