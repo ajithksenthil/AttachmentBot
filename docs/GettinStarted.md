@@ -4,10 +4,6 @@ Welcome to the Chatbot for Psychological Assessment Toolbox! This guide will hel
 
 ## Overview of Scripts
 
-### ObtainChatData.py
-**Purpose:** To collect and preprocess chat transcripts for analysis.  
-**Usage:** Run this script first to prepare your chat data. Make sure your chat transcripts are in a CSV file and update the `input_datapath` in the script to point to your data file.
-
 ### EmbeddingExtraction.py
 **Purpose:** To extract numerical embeddings from the chat transcripts using OpenAI's embedding API.  
 **Usage:** Run this script after `ObtainChatData.py`. It requires an API key from OpenAI, so ensure you have set this up as per the instructions in the script.
@@ -20,12 +16,17 @@ Welcome to the Chatbot for Psychological Assessment Toolbox! This guide will hel
 **Purpose:** To analyze the chat data using machine learning models, including training, validation, and testing.  
 **Usage:** Use this script to train a model on your data and evaluate its performance. Make sure to adjust the script to match your dataset's features and labels.
 
+### predict_survey_results.py
+**Purpose:** To predict the survey results from a new set of chat data using the machine learning models, trained from before in ChatAssessementAnalysis.py.  
+**Usage:** Use this script to predict your survey data from a new conversation.
+
 ### DataVisualization.py
 **Purpose:** To create visualizations for your chat data and machine learning model results.  
 **Usage:** After running `ChatAssessmentAnalysis.py`, use this script to visualize the model's performance and any other insights from your data.
 
 ## Setup Instructions
 
+NOTE: <...> means replace with the actual thing you want to use, do not keep the "< >" just replace with what it the text in the middle represents but for you specifically
 ### Step 1: Clone the Repository
 Clone the toolbox repository to your local machine:
 
@@ -102,42 +103,17 @@ Clone the toolbox repository to your local machine:
      - `DATABASE_URL` with the value obtained from Heroku.
      - `OPENAI_API_KEY` with your OpenAI API key.
 
-### Step 6: Install Dependencies
+### Step 6: Install Dependencies to run scripts locally
 
-1. **Navigate to the toolbox directory:**
+1. **Navigate to the toolbox directory in your local machine:**
    ```sh
-   cd <repository-directory>
+   cd <repository-directory (replace with actual name)>
    ```
 2. **Install required dependencies:**
    ```sh
    pip install -r requirements.txt
    ```
-
-## Running the Scripts
-
-Each script is designed to be run independently, based on the stage of your analysis:
-
-1. **Start by running `ObtainChatData.py` to prepare your data:**
-   ```sh
-   python scripts/ObtainChatData.py
-   ```
-2. **Use `EmbeddingExtraction.py` to add embeddings to your data:**
-   ```sh
-   python scripts/EmbeddingExtraction.py
-   ```
-3. **Run `FeatureExtraction.py` to include additional features:**
-   ```sh
-   python scripts/FeatureExtraction.py
-   ```
-4. **Analyze your data with `ChatAssessmentAnalysis.py`:**
-   ```sh
-   python scripts/ChatAssessmentAnalysis.py
-   ```
-5. **Finally, visualize your results using `DataVisualization.py`:**
-   ```sh
-   python scripts/DataVisualization.py
-   ```
-
+   
 ## Additional File: get_data.py
 
 ### Purpose
@@ -149,7 +125,35 @@ Each script is designed to be run independently, based on the stage of your anal
    ```sh
    python get_data.py
    ```
-3. **Proceed with the analysis scripts as mentioned above.**
+3. **Proceed with the analysis scripts as mentioned below.**
+
+
+## Running the Scripts after you save your data from the chatbot
+
+Each script is designed to be run independently, based on the stage of your analysis:
+
+
+1. **Start by using `EmbeddingExtraction.py` to add embeddings to your data:**
+   ```sh
+   python scripts/EmbeddingExtraction.py
+   ```
+3. ** (OPTIONAL: You must implement proper data formatting) Run `FeatureExtraction.py` to include additional features:**
+   ```sh
+   python scripts/FeatureExtraction.py
+   ```
+4. **Analyze your data with `ChatAssessmentAnalysis.py`:**
+   ```sh
+   python scripts/ChatAssessmentAnalysis.py
+   ```
+5. **Specify what your new chat transcript is in the script where it says to in the comments and analyze your data with `predict_survey_results.py`:**
+   ```sh
+   python scripts/predict_survey_results.py
+   ```
+6. **Finally if you used the script predict_survey_results.py and saved it in a data frame, visualize your results using `DataVisualization.py` and specifying the correct corresponding file path:**
+   ```sh
+   python scripts/DataVisualization.py
+   ```
+
 
 ## Notes for Users
 
